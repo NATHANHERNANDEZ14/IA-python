@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 import joblib
 
 # 📌 Conexión a MongoDB
-client = MongoClient("mongodb://mongo:JUIeGjMvEDiFmBplKWZXipvXfqCpOJyt@mongodb.railway.internal:27017")
+client = MongoClient("mongodb://mongo:JUIeGjMvEDiFmBplKWZXipvXfqCpOJyt@shuttle.proxy.rlwy.net:38967")
 db = client["mongo"]
 progreso_col = db["progresos"]
 tareas_col = db["tareas"]
@@ -76,4 +76,6 @@ def predecir_api():
     return jsonify({"dificultad_sugerida": etiquetas[pred]})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000)
+    port = int(os.environ.get("PORT", 3000))  
+    app.run(host="0.0.0.0", port=port)
+
